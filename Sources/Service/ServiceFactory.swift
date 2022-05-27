@@ -5,17 +5,16 @@
 //  Created by 孟祥文 on 2022/5/27.
 //
 import Vapor
-protocol ServiceFactory {
-    var req: Request { get }
+public protocol ServiceFactory {
 }
 
 extension ServiceFactory {
-    public func make(_ id: String) -> RequestService {
+    public func make(_ id: String,for req: Request) -> RequestService {
         req.application.services.get(id, for: req)
     }
     
-    public func make<T>(id: String) -> T {
-         guard let result = make(id) as? T else {
+    public func make<T>(id: String,for req: Request) -> T {
+         guard let result = make(id,for: req) as? T else {
              fatalError("\(id) is not configured,use: app.services.use()")
          }
          return result

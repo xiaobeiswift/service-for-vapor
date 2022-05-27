@@ -10,10 +10,14 @@ import Vapor
 extension Request {
     // repository
     public struct RepositoryFactory: ServiceFactory {
-        var req: Request
+        let req: Request
         
         fileprivate init(_ req:Request) {
             self.req = req
+        }
+        
+        public func make<T>(id: String) -> T {
+            make(id: id, for: req)
         }
     }
     private struct RepositoryFactoryKey: StorageKey {
@@ -31,10 +35,13 @@ extension Request {
     
     //services
     public struct ServicesFactory: ServiceFactory {
-        var req: Request
+        let req: Request
         
         fileprivate init(_ req:Request) {
             self.req = req
+        }
+        public func make<T>(id: String) -> T {
+            make(id: id, for: req)
         }
     }
     private struct ServicesFactoryKey: StorageKey {
@@ -53,10 +60,13 @@ extension Request {
     // ApiServices
     
     public struct ApiServicesFactory: ServiceFactory {
-        var req: Request
+        let req: Request
         
         fileprivate init(_ req:Request) {
             self.req = req
+        }
+        public func make<T>(id: String) -> T {
+            make(id: id, for: req)
         }
     }
     private struct ApiServicesFactoryKey: StorageKey {
