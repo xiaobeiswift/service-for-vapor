@@ -56,29 +56,4 @@ extension Request {
             self.application.storage[ServicesFactoryKey.self] = newValue
         }
     }
-    
-    // ApiServices
-    
-    public struct ApiServicesFactory: ServiceFactory {
-        let req: Request
-        
-        fileprivate init(_ req:Request) {
-            self.req = req
-        }
-        public func make<T>(id: String) -> T {
-            make(id: id, for: req)
-        }
-    }
-    private struct ApiServicesFactoryKey: StorageKey {
-        typealias Value = ApiServicesFactory
-    }
-    
-    public var apis: ApiServicesFactory {
-        get {
-            self.application.storage[ApiServicesFactoryKey.self] ?? .init(self)
-        }
-        set {
-            self.application.storage[ApiServicesFactoryKey.self] = newValue
-        }
-    }
 }
