@@ -8,7 +8,7 @@
 import Vapor
 
 public protocol RequestService {
-    func `for`(_ req: Request) -> Self
+    
 }
 
 
